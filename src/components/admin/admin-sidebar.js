@@ -36,7 +36,7 @@ export function AdminSidebar() {
                 "block rounded-2xl border px-4 py-3 text-sm transition-all duration-300",
                 active
                   ? "border-[#00ffaa]/30 bg-[#00ffaa]/10 text-[#00ffaa]"
-                  : "border-white/10 bg-white/[0.02] text-white/70 hover:border-white/20 hover:text-white",
+                  : "border-white/10 bg-white/2 text-white/70 hover:border-white/20 hover:text-white",
               )}
             >
               {link.label}
