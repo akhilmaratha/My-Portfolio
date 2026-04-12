@@ -3,10 +3,12 @@ import { json, requireAdmin } from "@/lib/api-utils";
 import { Skill } from "@/models/Skill";
 import { skillSchema } from "@/lib/validation";
 
-export async function PUT(request, { params }) {
+export async function PUT(request, context) {
   try {
     const adminError = await requireAdmin(request);
     if (adminError) return adminError;
+
+    const { id } = await context.params;
 
     const body = await request.json();
     const parsed = skillSchema.partial().safeParse(body);
@@ -15,7 +17,7 @@ export async function PUT(request, { params }) {
     }
 
     await connectToDatabase();
-    const skill = await Skill.findByIdAndUpdate(params.id, parsed.data, { new: true });
+    const skill = await Skill.findByIdAndUpdate(id, parsed.data, { returnDocument: "after" });
 
     if (!skill) {
       return json({ error: "Skill not found" }, { status: 404 });
@@ -27,13 +29,15 @@ export async function PUT(request, { params }) {
   }
 }
 
-export async function DELETE(request, { params }) {
+export async function DELETE(request, context) {
   try {
     const adminError = await requireAdmin(request);
     if (adminError) return adminError;
 
+    const { id } = await context.params;
+
     await connectToDatabase();
-    const skill = await Skill.findByIdAndDelete(params.id);
+    const skill = await Skill.findByIdAndDelete(id);
 
     if (!skill) {
       return json({ error: "Skill not found" }, { status: 404 });

@@ -3,16 +3,16 @@ import { json, requireAdmin } from "@/lib/api-utils";
 import { Profile } from "@/models/Profile";
 
 const defaultProfile = {
-  name: "dev.name",
-  bio: "Senior MERN developer building cinematic interfaces and reliable backend systems.",
-  location: "Remote, global",
-  role: "Senior MERN Developer",
+  name: "Akhil Maratha",
+  bio: "MERN developer building cinematic interfaces and reliable backend systems.",
+  location: "Rishikesh, Uttarakhand, India",
+  role: "MERN Developer",
   imageUrl: "",
   socialLinks: [
-    { label: "GitHub", href: "https://github.com/" },
-    { label: "LinkedIn", href: "https://linkedin.com/" },
-    { label: "Email", href: "mailto:hello@example.com" },
-    { label: "Twitter", href: "https://x.com/" },
+    { label: "GitHub", href: "https://github.com/akhilmaratha" },
+    { label: "LinkedIn", href: "https://linkedin.com/in/akhilmaratha" },
+    { label: "Email", href: "mailto:akhilmaratha@gmail.com" },
+    // { label: "Twitter", href: "https://x.com/akhilmaratha" },
   ],
 };
 
@@ -33,7 +33,11 @@ export async function PUT(request) {
 
     const body = await request.json();
     await connectToDatabase();
-    const profile = await Profile.findOneAndUpdate({}, body, { new: true, upsert: true, setDefaultsOnInsert: true });
+    const profile = await Profile.findOneAndUpdate({}, body, {
+      returnDocument: "after",
+      upsert: true,
+      setDefaultsOnInsert: true,
+    });
     return json({ profile });
   } catch (error) {
     return json({ error: error.message }, { status: 500 });

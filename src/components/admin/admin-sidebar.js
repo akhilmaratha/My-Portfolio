@@ -20,7 +20,7 @@ export function AdminSidebar() {
   return (
     <aside className="flex h-full flex-col border-r border-white/10 bg-[#05070a] p-5">
       <div>
-        <div className="font-syne text-2xl font-black text-white">dev.name</div>
+        <div className="font-syne text-2xl font-black text-white">Akhil Maratha</div>
         <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.3em] text-[#00ffaa]">Admin Panel</p>
       </div>
 

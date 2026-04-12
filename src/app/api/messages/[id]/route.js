@@ -2,13 +2,15 @@ import { connectToDatabase } from "@/lib/db";
 import { json, requireAdmin } from "@/lib/api-utils";
 import { Message } from "@/models/Message";
 
-export async function DELETE(request, { params }) {
+export async function DELETE(request, context) {
   try {
     const adminError = await requireAdmin(request);
     if (adminError) return adminError;
 
+    const { id } = await context.params;
+
     await connectToDatabase();
-    const message = await Message.findByIdAndDelete(params.id);
+    const message = await Message.findByIdAndDelete(id);
 
     if (!message) {
       return json({ error: "Message not found" }, { status: 404 });
@@ -20,14 +22,16 @@ export async function DELETE(request, { params }) {
   }
 }
 
-export async function PUT(request, { params }) {
+export async function PUT(request, context) {
   try {
     const adminError = await requireAdmin(request);
     if (adminError) return adminError;
 
+    const { id } = await context.params;
+
     const body = await request.json();
     await connectToDatabase();
-    const message = await Message.findByIdAndUpdate(params.id, { read: Boolean(body.read) }, { new: true });
+    const message = await Message.findByIdAndUpdate(id, { read: Boolean(body.read) }, { returnDocument: "after" });
 
     if (!message) {
       return json({ error: "Message not found" }, { status: 404 });

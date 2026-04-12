@@ -9,8 +9,11 @@ import { Hero } from "@/components/sections/hero";
 import { Projects } from "@/components/sections/projects";
 import { Stack } from "@/components/sections/stack";
 import { SmoothScroll } from "@/components/layout/smooth-scroll";
+import { getPublicProfile } from "@/lib/public-profile";
 
-export default function Home() {
+export default async function Home() {
+  const profile = await getPublicProfile();
+
   return (
     <>
       <AnimatedCursor />
@@ -18,7 +21,7 @@ export default function Home() {
       <SmoothScroll />
       <Navbar />
       <main className="relative z-10">
-        <Hero />
+        <Hero profile={profile} />
         <div className="section-clip bg-[linear-gradient(180deg,rgba(255,255,255,0.015),rgba(255,255,255,0))]">
           <About />
         </div>
@@ -32,10 +35,10 @@ export default function Home() {
           <Experience />
         </div>
         <div className="section-clip bg-[linear-gradient(180deg,rgba(255,255,255,0.015),rgba(255,255,255,0))]">
-          <Contact />
+          <Contact socials={profile.socialLinks} />
         </div>
       </main>
-      <Footer />
+      <Footer name={profile.name} />
     </>
   );
 }

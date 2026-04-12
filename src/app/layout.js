@@ -13,13 +13,17 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export const metadata = {
-  title: "dev.name | Senior MERN Portfolio",
+  title: "Akhil Maratha | MERN Portfolio",
   description: "Cinematic MERN developer portfolio with admin tooling, MongoDB, and motion-driven UI.",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${syne.variable} ${jetBrainsMono.variable} h-full scroll-smooth antialiased`}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${syne.variable} ${jetBrainsMono.variable} h-full scroll-smooth antialiased`}
+    >
       <body className="min-h-full bg-[#080b0f] text-white selection:bg-[#00ffaa] selection:text-[#05070a]">{children}</body>
     </html>
   );

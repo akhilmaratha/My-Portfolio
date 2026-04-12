@@ -4,16 +4,16 @@ import { AdminHeader } from "@/components/admin/admin-header";
 import { ProfileManager } from "@/components/admin/profile-manager";
 
 const fallbackProfile = {
-  name: "dev.name",
-  bio: "Senior MERN developer building cinematic interfaces and reliable backend systems.",
-  location: "Remote, global",
-  role: "Senior MERN Developer",
+  name: "Akhil Maratha",
+  bio: "MERN developer building cinematic interfaces and reliable backend systems.",
+  location: "Rishikesh, Uttarakhand, India",
+  role: "MERN Developer",
   imageUrl: "",
   socialLinks: [
-    { label: "GitHub", href: "https://github.com/" },
-    { label: "LinkedIn", href: "https://linkedin.com/" },
-    { label: "Email", href: "mailto:hello@example.com" },
-    { label: "Twitter", href: "https://x.com/" },
+    { label: "GitHub", href: "https://github.com/akhilmaratha" },
+    { label: "LinkedIn", href: "https://linkedin.com/in/akhilmaratha" },
+    { label: "Email", href: "mailto:akhilmaratha@gmail.com" },
+    // { label: "Twitter", href: "https://x.com/akhilmaratha" },
   ],
 };
 

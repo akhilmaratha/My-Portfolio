@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowDownRight, Sparkles } from "lucide-react";
-import { heroRoles } from "@/lib/data";
+import { heroRoles, resumeLink } from "@/lib/data";
 import { MagneticButton } from "../layout/magnetic-button";
 import { TypingRoles } from "../ui/typing-roles";
 
@@ -17,14 +17,14 @@ function CodeSnippetCard() {
       </div>
       <pre className="overflow-x-auto text-sm leading-7 text-white/80">
         <code>
-          <span className="text-[#00c8ff]">import</span> express <span className="text-[#00c8ff]">from</span> <span className="text-[#00ffaa]">"express"</span>
+          <span className="text-[#00c8ff]">import</span> express <span className="text-[#00c8ff]">from</span> <span className="text-[#00ffaa]">&ldquo;express&rdquo;</span>
           {"\n"}
           <span className="text-[#00c8ff]">const</span> router = express.Router(){"\n"}
           {"\n"}
-          router.post(<span className="text-[#00ffaa]">"/contact"</span>, async (req, res) =&gt; {"\n"}
+          router.post(<span className="text-[#00ffaa]">&ldquo;/contact&rdquo;</span>, async (req, res) =&gt; {"\n"}
           {"  "}<span className="text-[#00c8ff]">const</span> {"{"} name, email, message {"}"} = req.body{"\n"}
           {"  "}<span className="text-[#00c8ff]">if</span> (!name || !email || !message) {"\n"}
-          {"    "}<span className="text-[#00c8ff]">return</span> res.status(400).json({"{"} error: <span className="text-[#00ffaa]">"Validation failed"</span> {"}"}){"\n"}
+          {"    "}<span className="text-[#00c8ff]">return</span> res.status(400).json({"{"} error: <span className="text-[#00ffaa]">&ldquo;Validation failed&rdquo;</span> {"}"}){"\n"}
           {"  "}{"}"}{"\n"}
           {"  "}<span className="text-[#00c8ff]">await</span> Message.create({"{"} name, email, message {"}"}){"\n"}
           {"  "}<span className="text-[#00c8ff]">return</span> res.json({"{"} ok: true {"}"}){"\n"}
@@ -35,7 +35,9 @@ function CodeSnippetCard() {
   );
 }
 
-export function Hero() {
+export function Hero({ profile }) {
+  const roles = profile?.role ? [profile.role] : heroRoles;
+
   return (
     <section id="home" className="relative overflow-hidden pt-28 sm:pt-32">
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_20%_20%,rgba(0,255,170,0.12),transparent_30%),radial-gradient(circle_at_80%_30%,rgba(0,200,255,0.1),transparent_25%),radial-gradient(circle_at_50%_80%,rgba(0,255,170,0.08),transparent_30%)]" />
@@ -55,11 +57,11 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="mt-8 font-syne text-[clamp(3.8rem,9vw,6.5rem)] font-black leading-[0.92] tracking-tight text-white"
           >
-            Building cinematic digital products for modern teams.
+            {profile?.name || "Building cinematic digital products"}
           </motion.h1>
 
           <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }} className="mt-6 text-lg uppercase tracking-[0.28em] text-white/60 sm:text-xl">
-            I am a <TypingRoles items={heroRoles} />
+            I am a <TypingRoles items={roles} />
           </motion.div>
 
           <motion.p
@@ -68,7 +70,7 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.3 }}
             className="mt-6 max-w-xl text-base leading-8 text-white/70 sm:text-lg"
           >
-            I design and build high-conversion MERN experiences with sharp motion, disciplined architecture, and production-ready admin tooling.
+            {profile?.bio || "I design and build high-conversion MERN experiences with sharp motion, disciplined architecture, and production-ready admin tooling."}
           </motion.p>
 
           <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.4 }} className="mt-10 flex flex-wrap gap-4">
@@ -77,6 +79,9 @@ export function Hero() {
             </MagneticButton>
             <MagneticButton as="a" href="#contact" className="border-white/20 text-white/90">
               Contact Me <ArrowDownRight className="ml-2 h-4 w-4" />
+            </MagneticButton>
+            <MagneticButton as="a" href={resumeLink} target="_blank" rel="noreferrer" className="border-[#00c8ff]/40 text-[#00c8ff] hover:text-black">
+              View Resume
             </MagneticButton>
           </motion.div>
 

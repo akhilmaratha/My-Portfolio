@@ -12,6 +12,8 @@ export const heroRoles = [
   "MongoDB + Next.js problem solver.",
 ];
 
+export const resumeLink = "./Akhil_Maratha_Resume.pdf";
+
 export const highlights = [
   {
     label: "Available",
@@ -35,16 +37,16 @@ export const skillBars = [
 ];
 
 export const infoCards = [
-  { label: "Role", value: "Senior MERN Developer" },
-  { label: "Education", value: "Computer Science / Self-directed product engineering" },
-  { label: "Location", value: "Remote, global" },
+  { label: "Role", value: "MERN Developer" },
+  { label: "Education", value: "Master of Computer Applications" },
+  { label: "Location", value: "Rishikesh, Uttarakhand" },
   { label: "Availability", value: "Open for high-impact builds" },
 ];
 
 export const stats = [
-  { label: "Projects", value: 45 },
-  { label: "Clients", value: 30 },
-  { label: "Years", value: 4 },
+  { label: "Projects", value: 10 },
+  { label: "Clients", value: 2 },
+  { label: "Years", value: 1 },
 ];
 
 export const techCategories = [
@@ -53,7 +55,7 @@ export const techCategories = [
     items: [
       { name: "Next.js", icon: "▲" },
       { name: "React", icon: "◌" },
-      { name: "Framer Motion", icon: "↻" },
+      // { name: "Framer Motion", icon: "↻" },
       { name: "Tailwind CSS", icon: "✦" },
       { name: "TypeScript", icon: "{}" },
     ],
@@ -166,35 +168,43 @@ export const projects = [
 export const experience = [
   {
     date: "2023 - Present",
-    role: "Senior MERN Engineer",
+    role: "Full Stack Developer Intern (Freelance)",
     company: "Independent Studio",
     description:
-      "Delivered motion-led dashboards, marketing sites, and admin tools with measurable improvements in conversion and maintainability.",
-    tech: ["Next.js", "MongoDB", "Framer Motion"],
+      " Built and deployed multiple full-stack applications using Next.js, focusing on performance and scalable architecture",
+    tech: ["Next.js", "MongoDB", "Tailwind CSS"],
   },
-  {
-    date: "2021 - 2023",
-    role: "Full-Stack Developer",
-    company: "Product Team",
-    description:
-      "Owned feature development from database schema design through polished UI delivery and API implementation.",
-    tech: ["React", "Node.js", "Express"],
-  },
-  {
-    date: "2019 - 2021",
-    role: "Frontend Engineer",
-    company: "Digital Agency",
-    description:
-      "Shipped landing pages and component systems with a strong focus on motion, accessibility, and performance.",
-    tech: ["Tailwind", "GSAP", "Accessibility"],
-  },
+  // {
+  //   date: "2021 - 2023",
+  //   role: "Full-Stack Developer",
+  //   company: "Product Team",
+  //   description:
+  //     "Owned feature development from database schema design through polished UI delivery and API implementation.",
+  //   tech: ["React", "Node.js", "Express"],
+  // },
+  // {
+  //   date: "2019 - 2021",
+  //   role: "Frontend Engineer",
+  //   company: "Digital Agency",
+  //   description:
+  //     "Shipped landing pages and component systems with a strong focus on motion, accessibility, and performance.",
+  //   tech: ["Tailwind", "GSAP", "Accessibility"],
+  // },
 ];
 
 export const education = [
   {
-    date: "2018 - 2022",
-    role: "B.S. Computer Science",
-    company: "University Program",
+    date: "2025 - 2027",
+    role: "MCA",
+    company: "Graphic Era Deemed To Be University",
+    description:
+      "Completed core systems, databases, and software engineering coursework while building side projects and client work.",
+    tech: ["DSA", "Databases", "Systems"],
+  },
+    {
+    date: "2022 - 2025",
+    role: "BCA",
+    company: "Omkarananda Institute of Technology and Management",
     description:
       "Completed core systems, databases, and software engineering coursework while building side projects and client work.",
     tech: ["DSA", "Databases", "Systems"],
@@ -202,8 +212,8 @@ export const education = [
 ];
 
 export const socials = [
-  { label: "GitHub", href: "https://github.com/" },
-  { label: "LinkedIn", href: "https://linkedin.com/" },
-  { label: "Email", href: "mailto:hello@example.com" },
-  { label: "Twitter", href: "https://x.com/" },
+  { label: "GitHub", href: "https://github.com/akhilmaratha" },
+  { label: "LinkedIn", href: "https://linkedin.com/in/akhilmaratha" },
+  { label: "Email", href: "mailto:akhilmaratha@gmail.com" },
+  // { label: "Twitter", href: "https://x.com/" },
 ];

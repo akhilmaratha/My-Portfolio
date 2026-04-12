@@ -3,10 +3,12 @@ import { json, requireAdmin } from "@/lib/api-utils";
 import { Project } from "@/models/Project";
 import { projectSchema } from "@/lib/validation";
 
-export async function PUT(request, { params }) {
+export async function PUT(request, context) {
   try {
     const adminError = await requireAdmin(request);
     if (adminError) return adminError;
+
+    const { id } = await context.params;
 
     const body = await request.json();
     const parsed = projectSchema.partial().safeParse(body);
@@ -16,9 +18,9 @@ export async function PUT(request, { params }) {
 
     await connectToDatabase();
     const project = await Project.findByIdAndUpdate(
-      params.id,
+      id,
       { ...parsed.data, ...(parsed.data.status ? { status: parsed.data.status.toLowerCase() } : {}) },
-      { new: true },
+      { returnDocument: "after" },
     );
 
     if (!project) {
@@ -31,13 +33,15 @@ export async function PUT(request, { params }) {
   }
 }
 
-export async function DELETE(request, { params }) {
+export async function DELETE(request, context) {
   try {
     const adminError = await requireAdmin(request);
     if (adminError) return adminError;
 
+    const { id } = await context.params;
+
     await connectToDatabase();
-    const project = await Project.findByIdAndDelete(params.id);
+    const project = await Project.findByIdAndDelete(id);
 
     if (!project) {
       return json({ error: "Project not found" }, { status: 404 });

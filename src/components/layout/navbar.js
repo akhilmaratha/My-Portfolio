@@ -45,7 +45,7 @@ export function Navbar() {
       >
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <a href="#home" className="flex items-center gap-2 text-xl font-black tracking-tight text-white">
-            <span className="font-syne text-2xl text-white">dev.name</span>
+            <span className="font-syne text-2xl text-white">Akhil Maratha</span>
             <span className="h-2.5 w-2.5 rounded-full bg-[#00ffaa] ring-4 ring-[#00ffaa]/10" />
           </a>
 
@@ -96,7 +96,7 @@ export function Navbar() {
           >
             <div className="flex h-full flex-col px-5 py-5">
               <div className="flex items-center justify-between">
-                <span className="font-syne text-2xl font-black text-white">dev.name</span>
+                <span className="font-syne text-2xl font-black text-white">Akhil Maratha</span>
                 <button
                   type="button"
                   onClick={() => setOpen(false)}
