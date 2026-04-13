@@ -6,7 +6,8 @@ import { projects } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import { ProjectCard } from "../ui/project-card";
 
-const filters = ["All", "Frontend", "Backend", "Full-Stack", "Open Source"];
+const filters = ["All", "Frontend", "Backend", "Full-Stack"];
+//open source
 
 export function Projects() {
   const [active, setActive] = useState("All");
@@ -20,7 +21,7 @@ export function Projects() {
   }, [active]);
 
   return (
-    <section id="projects" className="relative overflow-hidden px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
+    <section id="projects" className="relative overflow-hidden px-4 py-20 md:py-24 sm:px-6 lg:px-8 lg:py-32">
       <div className="mx-auto max-w-7xl">
         <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
@@ -28,7 +29,7 @@ export function Projects() {
             <h2 className="mt-4 max-w-2xl font-syne text-4xl font-black tracking-tight text-white sm:text-5xl">Selected work built to convert, scale, and feel memorable.</h2>
           </div>
 
-          <div className="relative flex flex-wrap gap-2 rounded-full border border-white/10 `bg-white/3` p-2">
+          <div className="relative flex flex-wrap gap-2 rounded-full border border-white/10 `bg-white/3` px-2 py-1">
             {filters.map((filter) => (
               <button
                 key={filter}

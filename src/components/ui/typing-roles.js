@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-export function TypingRoles({ items, speed = 50, pause = 1400 }) {
+export function TypingRoles({ items, speed = 60, pause = 1400 }) {
   const [index, setIndex] = useState(0);
   const [text, setText] = useState("");
   const [deleting, setDeleting] = useState(false);

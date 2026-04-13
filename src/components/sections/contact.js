@@ -54,7 +54,7 @@ export function Contact({ socials: profileSocials }) {
         <div className="mt-12 grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
           <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="rounded-4xl border border-white/10 bg-white/3 p-6">
             <div className="space-y-4">
-              {activeSocials.map((social) => {
+              {activeSocials.slice(0,3).map((social) => {
                 const Icon = socialIcons[social.label];
                 return (
                   <a key={social.label} href={social.href} className="flex items-center justify-between rounded-2xl border border-white/10 px-4 py-4 text-white/80 transition-all duration-300 hover:translate-x-1 hover:border-[#00ffaa]/30 hover:text-white">

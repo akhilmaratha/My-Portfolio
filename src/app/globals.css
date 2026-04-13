@@ -95,9 +95,19 @@ img {
 }
 
 .section-clip {
-  clip-path: polygon(0 0, 100% 0, 100% 96%, 0 100%);
+  clip-path: none;
 }
 
 .section-clip-alt {
-  clip-path: polygon(0 4%, 100% 0, 100% 100%, 0 96%);
+  clip-path: none;
+}
+
+@media (min-width: 768px) {
+  .section-clip {
+    clip-path: polygon(0 0, 100% 0, 100% 96%, 0 100%);
+  }
+
+  .section-clip-alt {
+    clip-path: polygon(0 4%, 100% 0, 100% 100%, 0 96%);
+  }
 }

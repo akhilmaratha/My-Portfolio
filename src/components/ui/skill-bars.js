@@ -31,9 +31,9 @@ export function SkillBars({ items }) {
     <div ref={ref} className="space-y-5">
       {items.map((item, index) => (
         <div key={item.name} className="space-y-2">
-          <div className="flex items-center justify-between text-sm uppercase tracking-[0.2em] text-white/70">
-            <span>{item.name}</span>
-            <span className="font-mono text-[#00c8ff]">{item.value}%</span>
+          <div className="flex items-center justify-between gap-3 text-xs uppercase tracking-[0.14em] text-white/70 sm:text-sm sm:tracking-[0.2em]">
+            <span className="min-w-0 truncate">{item.name}</span>
+            <span className="shrink-0 font-mono text-[#00c8ff]">{item.value}%</span>
           </div>
           <div className="h-2 overflow-hidden rounded-full border border-white/10 bg-white/5">
             <div

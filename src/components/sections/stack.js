@@ -6,10 +6,10 @@ import { cn } from "@/lib/utils";
 
 export function Stack() {
   return (
-    <section id="stack" className="relative overflow-hidden px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
+    <section id="stack" className="relative overflow-hidden px-4 py-20 md:py-24 sm:px-6 lg:px-8 lg:py-32">
       <div className="mx-auto max-w-7xl">
         <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
-          <p className="font-mono text-xs uppercase tracking-[0.4em] text-[#00ffaa]">Technology</p>
+          <p className="font-mono mt-5 md:mt-1 text-xs uppercase tracking-[0.4em] text-[#00ffaa]">Technology</p>
           <h2 className="mt-4 font-syne text-4xl font-black tracking-tight text-white sm:text-5xl">
             <span className="text-white/70">[</span> stack_ <span className="text-white/70">]</span>
           </h2>
