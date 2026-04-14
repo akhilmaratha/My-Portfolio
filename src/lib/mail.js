@@ -10,26 +10,11 @@ export async function sendContactEmail({ name, email, subject, message }) {
     .map((recipientEmail) => ({ email: recipientEmail }));
 
   if (!apiKey || !senderEmail || recipients.length === 0) {
-    console.warn("[Brevo][contact] skipped", {
-      reason: !apiKey || !senderEmail ? "missing_api_or_sender" : "missing_recipients",
-      hasApiKey: Boolean(apiKey),
-      hasSenderEmail: Boolean(senderEmail),
-      recipients: recipients.length,
-      toEmail: toEmail || null,
-      subject,
-      from: email,
-    });
     return {
       skipped: true,
       reason: !apiKey || !senderEmail ? "Missing BREVO_API_KEY or BREVO_SENDER_EMAIL" : "Missing BREVO_TO_EMAIL",
     };
   }
-
-  console.info("[Brevo][contact] sending", {
-    to: recipients.map((recipient) => recipient.email),
-    from: email,
-    subject,
-  });
 
   const response = await fetch("https://api.brevo.com/v3/smtp/email", {
     method: "POST",
@@ -46,14 +31,43 @@ export async function sendContactEmail({ name, email, subject, message }) {
       to: recipients,
       replyTo: { email, name },
       subject: `Portfolio contact: ${subject}`,
-      textContent: `Name: ${name}\nEmail: ${email}\n\n${message}`,
+      textContent: `New portfolio contact message\n\nName: ${name}\nEmail: ${email}\nSubject: ${subject}\n\nMessage:\n${message}`,
       htmlContent: `
-        <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #0b0f14;">
-          <h2>New portfolio message</h2>
-          <p><strong>Name:</strong> ${name}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Subject:</strong> ${subject}</p>
-          <p><strong>Message:</strong><br />${message.replace(/\n/g, "<br />")}</p>
+        <div style="margin:0;padding:0;background:#080b0f;">
+          <div style="max-width:700px;margin:0 auto;padding:32px 20px;font-family:Arial,sans-serif;color:#f5faf7;">
+            <div style="overflow:hidden;border:1px solid rgba(255,255,255,0.09);border-radius:28px;background:linear-gradient(180deg,#0f151d 0%,#080b0f 100%);box-shadow:0 24px 80px rgba(0,0,0,0.35);">
+              <div style="padding:28px 32px;border-bottom:1px solid rgba(255,255,255,0.08);background:radial-gradient(circle at top left, rgba(0,255,170,0.14), transparent 35%), radial-gradient(circle at top right, rgba(0,200,255,0.12), transparent 28%);">
+                <div style="font-size:11px;letter-spacing:0.32em;text-transform:uppercase;color:#00ffaa;">${escapeHtml(senderName)}</div>
+                <h1 style="margin:14px 0 0;font-size:30px;line-height:1.1;font-weight:800;color:#ffffff;">New Contact Message</h1>
+                <p style="margin:12px 0 0;font-size:14px;line-height:1.8;color:rgba(245,250,247,0.7);">A new inquiry has arrived from your portfolio contact form.</p>
+              </div>
+
+              <div style="padding:32px;">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                  <div style="padding:14px 16px;border:1px solid rgba(255,255,255,0.08);border-radius:16px;background:rgba(255,255,255,0.03);">
+                    <div style="font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(245,250,247,0.45);">From</div>
+                    <div style="margin-top:7px;font-size:14px;color:#ffffff;">${escapeHtml(name)}</div>
+                  </div>
+                  <div style="padding:14px 16px;border:1px solid rgba(255,255,255,0.08);border-radius:16px;background:rgba(255,255,255,0.03);">
+                    <div style="font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(245,250,247,0.45);">Reply Email</div>
+                    <div style="margin-top:7px;font-size:14px;color:#ffffff;">${escapeHtml(email)}</div>
+                  </div>
+                </div>
+
+                <div style="margin-top:16px;padding:18px;border:1px solid rgba(255,255,255,0.08);border-radius:18px;background:rgba(255,255,255,0.03);">
+                  <div style="font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(245,250,247,0.45);">Subject</div>
+                  <p style="margin:10px 0 0;font-size:15px;line-height:1.7;color:#ffffff;">${escapeHtml(subject)}</p>
+                </div>
+
+                <div style="margin-top:16px;padding:20px;border:1px solid rgba(255,255,255,0.08);border-radius:20px;background:rgba(5,7,10,0.7);">
+                  <div style="font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(245,250,247,0.45);">Message</div>
+                  <p style="margin:10px 0 0;font-size:14px;line-height:1.85;color:rgba(245,250,247,0.86);">${toParagraphs(message)}</p>
+                </div>
+
+                <p style="margin:24px 0 0;font-size:12px;line-height:1.7;color:rgba(245,250,247,0.5);">Tip: You can reply directly to this email. The reply-to is set to the sender's address.</p>
+              </div>
+            </div>
+          </div>
         </div>
       `,
     }),
@@ -61,25 +75,10 @@ export async function sendContactEmail({ name, email, subject, message }) {
 
   if (!response.ok) {
     const details = await response.text();
-    console.error("[Brevo][contact] failed", {
-      status: response.status,
-      details,
-      subject,
-      from: email,
-      to: recipients.map((recipient) => recipient.email),
-    });
     throw new Error(`Brevo email send failed (${response.status}): ${details}`);
   }
 
-  const result = await response.json();
-  console.info("[Brevo][contact] sent", {
-    subject,
-    from: email,
-    to: recipients.map((recipient) => recipient.email),
-    messageId: result?.messageId || result?.messageIds || null,
-  });
-
-  return result;
+  return response.json();
 }
 
 function escapeHtml(value = "") {
@@ -101,23 +100,11 @@ export async function sendThankYouEmail({ name, email, subject, message }) {
   const senderName = process.env.BREVO_SENDER_NAME || "Portfolio";
 
   if (!apiKey || !senderEmail || !email) {
-    console.warn("[Brevo][thank-you] skipped", {
-      reason: !apiKey || !senderEmail ? "missing_api_or_sender" : "missing_recipient",
-      hasApiKey: Boolean(apiKey),
-      hasSenderEmail: Boolean(senderEmail),
-      to: email || null,
-      subject,
-    });
     return {
       skipped: true,
       reason: !apiKey || !senderEmail ? "Missing BREVO_API_KEY or BREVO_SENDER_EMAIL" : "Missing recipient email",
     };
   }
-
-  console.info("[Brevo][thank-you] sending", {
-    to: email,
-    subject,
-  });
 
   const response = await fetch("https://api.brevo.com/v3/smtp/email", {
     method: "POST",
@@ -171,21 +158,8 @@ export async function sendThankYouEmail({ name, email, subject, message }) {
 
   if (!response.ok) {
     const details = await response.text();
-    console.error("[Brevo][thank-you] failed", {
-      status: response.status,
-      details,
-      to: email,
-      subject,
-    });
     throw new Error(`Brevo thank-you email failed (${response.status}): ${details}`);
   }
 
-  const result = await response.json();
-  console.info("[Brevo][thank-you] sent", {
-    to: email,
-    subject,
-    messageId: result?.messageId || result?.messageIds || null,
-  });
-
-  return { success: true, ...result };
+  return { success: true, ...(await response.json()) };
 }

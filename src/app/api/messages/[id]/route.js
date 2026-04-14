@@ -47,13 +47,6 @@ export async function PUT(request, context) {
     message.read = shouldMarkRead;
 
     if (shouldSendThankYou) {
-      console.info("[Admin][messages] attempting thank-you email", {
-        messageId: id,
-        to: message.email,
-        subject: message.subject,
-        alreadyRead: message.read,
-        alreadySent: message.thankYouSent,
-      });
       const sendResult = await sendThankYouEmail({
         name: message.name,
         email: message.email,
@@ -66,34 +59,13 @@ export async function PUT(request, context) {
 
       if (thankYouSent) {
         message.thankYouSent = true;
-        console.info("[Admin][messages] thank-you email sent", {
-          messageId: id,
-          to: message.email,
-          subject: message.subject,
-        });
-      } else {
-        console.warn("[Admin][messages] thank-you email skipped", {
-          messageId: id,
-          to: message.email,
-          subject: message.subject,
-          reason: thankYouSkipReason,
-        });
       }
     }
 
     await message.save();
 
-    console.info("[Admin][messages] updated read state", {
-      messageId: id,
-      read: message.read,
-      thankYouSent: message.thankYouSent,
-    });
-
     return json({ message, thankYouSent, thankYouSkipped, thankYouSkipReason });
   } catch (error) {
-    console.error("[Admin][messages] update failed", {
-      error: error.message,
-    });
     return json({ error: error.message }, { status: 500 });
   }
 }
